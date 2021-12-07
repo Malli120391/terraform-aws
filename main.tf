@@ -10,6 +10,7 @@ resource  "aws_vpc"  "development-vpc" {
 
    tags = {
     Name = "devlop-vpc"
+    vpc_env = "dev"
   }
 
 }
