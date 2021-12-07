@@ -4,8 +4,17 @@ provider "aws" {
   secret_key = "p1qWEKbCzgwKE7VDilx1BYO6Bu0gjk0ojC6Gvxkp"
 }
 
- variable "subnet_cidr_block" {
-     description = "subnet cidr block"
+ //variable "subnet_cidr_block"
+   variable "cidr_block"{
+     description = "cidr blocks and names for vpc and subnets"
+     //default = "10.0.10.0/24"
+     //type = string
+     //type = list(string)
+      type = list(object({
+          cidr_block = string
+          name = string
+
+      }))
  }
 
  variable "vpc_cidr_block" {
@@ -16,10 +25,12 @@ provider "aws" {
   }
 resource  "aws_vpc"  "development-vpc" {
    
-   cidr_block = var.vpc_cidr_block.id
+   //cidr_block = var.vpc_cidr_block.id
+   cidr_block = var.cidr_blocks[0].cidr_block
 
    tags = {
-    Name = "var.environment"
+       Name = var.cidr_blocks[0].name
+    //Name = "var.environment"
     //vpc_env = "dev"
   }
 
@@ -27,11 +38,13 @@ resource  "aws_vpc"  "development-vpc" {
 resource "aws_subnet" "dev_sebnet-1" {
 
      vpc_id = aws_vpc.development-vpc.id
-     cidr_block = var.subnet_cidr_block
+     //cidr_block = var.subnet_cidr_block
+     cidr_block = var.cidr_blocks[1].cidr_block
      availability_zone = "ap-south-1a"
 
      tags = {
-    Name = "dev-subnet-1"
+         Name = var.cidr_blocks[1].name
+    //Name = "dev-subnet-1"
   }
   
 }
