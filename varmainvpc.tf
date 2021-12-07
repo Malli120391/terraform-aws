@@ -17,6 +17,8 @@ provider "aws" {
       }))
  }
 
+  variable avail_zone {}
+
  variable "vpc_cidr_block" {
      description = "vpc cidr block"
  }
@@ -55,7 +57,8 @@ resource "aws_subnet" "dev_sebnet-2" {
 
      vpc_id = data.aws_vpc.existing_vpc.id
      cidr_block = "172.31.48.0/20"
-     availability_zone = "ap-south-1a"
+     //availability_zone = "ap-south-1a"
+     availability_zone = var.avail_zone
 
      tags = {
     Name = "dev-subnet-2"
