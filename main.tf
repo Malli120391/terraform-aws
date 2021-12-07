@@ -43,3 +43,15 @@ resource "aws_subnet" "dev_sebnet-2" {
   }
   
 }
+
+   output "dev-vpc-id" {
+
+       value = aws_subnet.dev_sebnet-2.id
+     
+   }
+
+   output "dev-vpc-id" {
+
+       value = aws_subnet.dev_sebnet-1
+     
+   }
